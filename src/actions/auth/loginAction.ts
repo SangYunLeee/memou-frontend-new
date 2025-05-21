@@ -88,3 +88,10 @@ export async function signupAction(prevState: any, formData: FormData) {
     error: '',
   }
 }
+
+export async function logout() {
+  const cookieStore = await cookies();
+  cookieStore.delete('access_token');
+  cookieStore.delete('refresh_token');
+  redirect("/");
+}

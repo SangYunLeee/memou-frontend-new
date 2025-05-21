@@ -22,4 +22,3 @@ export const getPosts = async (): Promise<PostType[]> => {
   }));
   return modifiedPosts;
 };
-
