@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 export default async function Home() {
   const posts = await getPosts() || [];
-
   return (
     <div className="min-h-screen p-8">
       <main className="max-w-4xl mx-auto">

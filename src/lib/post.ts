@@ -12,6 +12,7 @@ export const getPosts = async (): Promise<PostType[]> => {
     },
     credentials: 'include',
     next: { tags: ['posts'] },
+    cache: 'force-cache',
   });
   const posts = (await response.json()).posts.data;
 
