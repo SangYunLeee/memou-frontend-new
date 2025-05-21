@@ -1,7 +1,5 @@
 import Link from 'next/link';
-import LoginForm from '@/components/auth/LoginForm';
-import { redirect } from 'next/navigation';
-
+import SignupForm from '@/components/auth/SignupForm';
 export const metadata = {
   title: '회원가입 - Nmemou',
   description: 'Nmemou 서비스에 회원가입하세요',
@@ -15,7 +13,7 @@ export default function LoginPage() {
           회원가입
         </h2>
       </div>
-      <LoginForm />
+      <SignupForm />
       <div className="text-center">
         <p className="text-sm text-gray-600">
           이미 계정이 있으신가요?{' '}
