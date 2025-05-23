@@ -5,6 +5,7 @@ import DropdownMenu from './DropdownMenu';
 
 const Navbar = async () => {
   const user = await getCurrentUser();
+
   return (
     <nav className="bg-white shadow-lg" role="navigation" aria-label="메인 네비게이션">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,9 +21,17 @@ const Navbar = async () => {
           </div>
 
           {/* Desktop menu */}
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {user ? (
-              <DropdownMenu user={user} />
+              <>
+                <Link 
+                  href="/write"
+                  className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+                >
+                  새글 쓰기
+                </Link>
+                <DropdownMenu user={user} />
+              </>
             ) : (
               <NavLink href="/login">로그인</NavLink>
             )}

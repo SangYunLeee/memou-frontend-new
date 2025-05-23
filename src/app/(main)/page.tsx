@@ -7,17 +7,11 @@ export default async function Home() {
   return (
     <div className="min-h-screen p-8">
       <main className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">게시글 목록</h1>
-          <Link 
-            href="/write"
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            글쓰기
-          </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {posts && posts.map((post) => (
             <article key={post.id} className="border border-gray-300 rounded-lg hover:shadow-md transition-shadow h-[200px] hover:border-indigo-300 transition-all p-0">
               <Link href={`/posts/${post.id}`} className="block h-full p-3 ">

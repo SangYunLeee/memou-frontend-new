@@ -36,22 +36,25 @@ export default function DropdownMenu({ user }: { user: UserType }) {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100">
           <Link 
             href="/profile" 
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            onClick={() => setIsOpen(false)}
           >
             프로필
           </Link>
           <Link 
             href="/settings" 
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            onClick={() => setIsOpen(false)}
           >
             설정
           </Link>
           <button 
             onClick={async () => {
-              logout();
+              await logout();
+              setIsOpen(false);
             }}
             className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
