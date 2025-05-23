@@ -5,7 +5,7 @@ import DefaultAvatar from '@/assets/defaultAvatar.png';
 export default async function Home() {
   const posts = await getPosts() || [];
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-screen p-1 sm:p-8">
       <main className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">게시글 목록</h1>
