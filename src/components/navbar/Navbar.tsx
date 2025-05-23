@@ -1,16 +1,10 @@
 import Link from 'next/link';
-import MobileMenuButton from './MobileMenuButton';
 import { NavLink } from './NavLink';
 import { getCurrentUser } from '@/lib/user';
-import { cookies } from 'next/headers';
-import Image from 'next/image';
-import DefaultAvatar from '@/assets/defaultAvatar.png';
 import DropdownMenu from './DropdownMenu';
 
 const Navbar = async () => {
   const user = await getCurrentUser();
-
-  console.log('user', user);
   return (
     <nav className="bg-white shadow-lg" role="navigation" aria-label="메인 네비게이션">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
