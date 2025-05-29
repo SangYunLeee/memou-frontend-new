@@ -1,39 +1,21 @@
 'use client'
-import SlateEditor from "@/components/slateEditor/SlateEditor";
-import { useState } from "react";
-import { createEditor, Descendant } from "slate";
-import { Editable, withReact } from "slate-react";
-import { withHistory } from "slate-history";
-import { renderPlaceholder } from "./slateEditor.fn";
-import { linkDecorator } from "@/components/slateEditor/LinkPlugin";
-export const defaultValue : Descendant[] = [
-  {
-    type: 'paragraph',
-    children: [{ text: '' }],
-  }
-]
+import SlateEditorComponent from "./_component/SlateEditor";
 
 export default function WritePage() {
-  const [editor] = useState(() => withReact(withHistory(createEditor())));
-  const [placeholder, setPlaceholder] = useState('내용을 입력하세요');
   return (
-    <div>
-                <SlateEditor
-                  editor={editor}
-                  initialValue={defaultValue}
-                  renderEditable={
-                    (editableProps) =>
-                      <Editable
-                        {...editableProps}
-                        placeholder={placeholder}
-                        renderPlaceholder={renderPlaceholder}
-                        onFocus={() => setPlaceholder('')}
-                        onBlur={() => setPlaceholder('내용을 입력하세요')}
-                        decorate={linkDecorator}
-                        onDragOver={(e) => e.preventDefault()}
-                      />
-                  }
-                />
+    <div className="flex flex-col gap-4 border border-gray-300 p-6 max-w-4xl mx-auto w-full min-h-[73vh]">
+      <input
+        className="w-full h-10 border-b-1 border-gray-300 focus:outline-none text-[1.3rem]"
+        type="text"
+        name="title"
+        placeholder="제목을 입력하세요"
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+          }
+        }}
+      />
+      <SlateEditorComponent className="flex-1 focus:outline" />
     </div>
   );
 }
