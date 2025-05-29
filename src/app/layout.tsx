@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
+import StateSetter from "@/app/_components/StateSetter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <main className="max-w-7xl mx-auto px-1 sm:px-8 lg:px-8 py-8">
           {children}
         </main>
+        <StateSetter />
       </body>
     </html>
   );
