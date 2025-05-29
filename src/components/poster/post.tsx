@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DefaultAvatar from "@/assets/defaultAvatar.png";
 import { PostType } from "@/interfaces/post-type";
+import { changeDateFormat } from "@/lib/date-helper";
 
 export default function Post({ post, overrideClassName }: { post: PostType, overrideClassName?: string }) {
   return (
@@ -22,7 +23,7 @@ export default function Post({ post, overrideClassName }: { post: PostType, over
               </span>
               {post.author.nickname}
             </span>
-            <time>{new Date(post.createdAt).toLocaleDateString()}</time>
+            <time>{changeDateFormat(post.createdAt)}</time>
           </div>
         </div>
       </div>

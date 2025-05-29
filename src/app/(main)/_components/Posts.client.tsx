@@ -9,23 +9,29 @@ import Post from "@/components/poster/post";
 export default function SearchedPosts({initialPosts = []}: {initialPosts: PostType[]}) {
   const { searchQuery } = useStore();
   const [searchedPosts, setSearchedPosts] = useState<PostType[]>(initialPosts);
-  const [isLoading, setIsLoading] = useState(false);
   const isSearched = searchQuery !== '';
 
   const posts = isSearched ? searchedPosts : initialPosts;
 
   useEffect(() => {
     const fetchPosts = async () => {
-      setIsLoading(true);
+      if (searchQuery === '') {
+        setSearchedPosts(initialPosts);
+        return;
+      }
       try {
         const data = await getPosts({ searchQuery });
         setSearchedPosts(data);
-      } finally {
-        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
       }
     };
     fetchPosts();
   }, [searchQuery]);
+
+  if (isSearched && posts.length === 0) {
+    return <div>검색 결과가 없습니다.</div>;
+  }
 
   return (
     <div className="searchedPosts grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
