@@ -25,7 +25,7 @@ const Navbar = async () => {
             {user ? (
               <>
                 <Link 
-                  href="/write"
+                  href="/post/write"
                   className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
                 >
                   새글 쓰기
