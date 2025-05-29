@@ -26,7 +26,7 @@ export default function SearchInput() {
           type="text"
           value={searchQuery}
           onChange={handleSearch}
-          placeholder="검색어를 입력하세요11"
+          placeholder="검색어를 입력하세요"
           className="w-64 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -37,4 +37,4 @@ export default function SearchInput() {
       </div>
     </>
   );
-} 
+}
