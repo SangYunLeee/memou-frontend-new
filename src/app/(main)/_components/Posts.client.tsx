@@ -1,7 +1,7 @@
 'use client';
 
 import { getPosts } from "@/lib/post-client";
-import useStore from '@/hooks/useStore';
+import useStore from '@/hooks/useStoreSearchquery';
 import { useState, useEffect } from 'react';
 import { PostType } from "@/interfaces/post-type";
 import Post from "@/components/poster/post";

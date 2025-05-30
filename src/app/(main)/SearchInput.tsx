@@ -1,7 +1,7 @@
 'use client';
 
 import { getPosts } from '@/lib/post-client';
-import useStore from '@/hooks/useStore';
+import useStore from '@/hooks/useStoreSearchquery';
 export default function SearchInput() {
   const { searchQuery, setSearchQuery } = useStore();
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {

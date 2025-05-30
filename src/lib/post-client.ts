@@ -23,3 +23,8 @@ export const getPosts = async ({ searchQuery }: GetPostsProps): Promise<PostType
 
   return modifiedPosts;
 };
+
+export const getPost = async ({ postId }: { postId: string }): Promise<PostType> => {
+  const response = await axiosInstance.get(`/posts/${postId}`);
+  return response.data.post;
+};

@@ -30,7 +30,8 @@ export default function DropdownMenu({ user }: { user: UserType }) {
         <Image
           src={typeof user?.profileImage === 'string' ? user.profileImage : DefaultAvatar.src}
           alt="프로필"
-          fill
+          width={32}
+          height={32}
           className="object-cover"
         />
       </button>

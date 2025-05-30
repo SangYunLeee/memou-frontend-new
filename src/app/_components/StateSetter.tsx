@@ -1,6 +1,6 @@
 'use client';
 
-import useStore from "@/hooks/useStore";
+import useStore from "@/hooks/useStoreSearchquery";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 

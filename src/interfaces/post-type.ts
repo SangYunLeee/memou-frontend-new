@@ -65,3 +65,13 @@ export interface CommentType {
   updatedAt: string;
   user: UserType;
 }
+
+export type SendPostType = {
+  id?: string;
+  title: string;
+  content: string;
+  contentSlate: string;
+  categoryId?: number;
+  visibilityId: Visibility;
+  statusId: PostStatus;
+};
