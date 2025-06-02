@@ -33,10 +33,9 @@ export default function EditorWrapper({postId}: {postId?: string}) {
   return (
     <>
       {/* 포스트 제목 */}
-      <div className="w-full border-b-1 border-gray-300 focus:outline-none text-[1.5rem] focus:placeholder-transparent pb-3">
+      <div className="w-full border-b-1 border-gray-300 focus:outline-none text-[1.5rem] focus:placeholder-transparent pb-1">
         {post?.title || 'Loading...'}
       </div>
-      
       {/* 작성자 정보와 날짜 */}
       <div className="flex items-center gap-3 py-0">
         <div className="flex items-center gap-2">
@@ -57,7 +56,6 @@ export default function EditorWrapper({postId}: {postId?: string}) {
           {changeDateFormat(post?.createdAt || '')}
         </span>
       </div>
-
       {/* 포스트 내용 */}
       <SlateEditorComponent ref={editorRef} initialValue={post?.contentSlate} className="flex-1 focus:outline p-2" />
     </>

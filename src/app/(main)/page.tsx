@@ -1,5 +1,5 @@
 import { getPosts } from '@/lib/post';
-import SearchInput from './SearchInput';
+import SearchInput from './_components/SearchInput';
 import SearchedPosts from './_components/Posts.client';
 
 export default async function Home() {

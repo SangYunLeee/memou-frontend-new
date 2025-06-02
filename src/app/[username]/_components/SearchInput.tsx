@@ -1,8 +1,8 @@
 'use client';
 
 import { getPosts } from '@/lib/post-client';
-import useStore from '@/hooks/useStoreSearchquery';
-export default function SearchInput() {
+import useStore from '@/app/[username]/_hooks/useStoreSearchquery';
+export default function SearchInput({className}: {className?: string}) {
   const { searchQuery, setSearchQuery } = useStore();
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -16,7 +16,7 @@ export default function SearchInput() {
   };
 
   return (
-    <div className="relative">
+    <div className={`${className}`}>
       <input
         type="text"
         value={searchQuery}

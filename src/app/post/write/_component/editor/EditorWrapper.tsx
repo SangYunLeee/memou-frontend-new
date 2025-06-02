@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import SlateEditorComponent from "./_component/SlateEditor";
 import TitleInput from "./_component/TitleInput";
-import useStorePostPoster from "@/hooks/useStorePostPoster";
+import useStorePostPoster from "@/app/(main)/_hooks/useStorePostPoster";
 import { getEditorSerializedData, handlePostSubmission } from "./EditorWrapper.fn";
 import { updateEditorContent } from "@/components/slateEditor/helper";
 import { revalidatePosts } from "@/actions/postAction";
