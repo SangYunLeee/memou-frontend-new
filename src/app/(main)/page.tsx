@@ -6,8 +6,8 @@ export default async function Home() {
   const initialPosts = await getPosts({});
 
   return (
-    <div className="min-h-screen p-2 sm:p-8">
-      <main className="max-w-7xl mx-auto">
+    <main className="p-2 sm:p-8">
+      <main className="max-w-5xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900">게시글 목록</h1>
           <SearchInput />
@@ -17,6 +17,6 @@ export default async function Home() {
         </div>
         <SearchedPosts initialPosts={initialPosts} />
       </main>
-    </div>
+    </main>
   );
 }

@@ -1,24 +1,7 @@
 import { PostStatus, PostType, SendPostType, Visibility } from "@/interfaces/post-type";
-import { CustomElement } from "@/interfaces/slate";
 import { axiosInstance } from "@/lib/axios";
-import { getPost } from "@/lib/post-client";
 import { Editor } from "slate";
-import { Transforms } from "slate";
 import { serialize } from "@/components/slateEditor/serialize";
-
-export const fetchPost = async (postId: string | undefined, setPost: (post: PostType) => void) => {
-  if (postId) {
-    const post = await getPost({postId});
-    setPost(post as PostType);
-  }
-}
-
-
-export const updateEditorContent = (editor: Editor, content: CustomElement[]) => {
-  Transforms.deselect(editor);
-  editor.children = content;
-  editor.onChange();
-};
 
 export const getEditorSerializedData = ({post, editor, title}: {post?: PostType, editor: Editor, title: string}) : SendPostType => {
   const jsonContent = JSON.stringify(editor.children);

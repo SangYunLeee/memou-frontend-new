@@ -148,3 +148,9 @@ export const resetNodes  = <T extends Node> (
     Transforms.select(editor, point)
   }
 }
+
+export const updateEditorContent = (editor: Editor, content: CustomElement[]) => {
+  Transforms.deselect(editor);
+  editor.children = content;
+  editor.onChange();
+};

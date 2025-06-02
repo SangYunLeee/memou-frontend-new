@@ -27,12 +27,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Navbar />
-        <main className="max-w-7xl mx-auto px-1 sm:px-8 lg:px-8 py-8">
           {children}
-        </main>
         <StateSetter />
       </body>
     </html>
