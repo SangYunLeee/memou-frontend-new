@@ -3,14 +3,16 @@ import { axiosInstance } from "./axios";
 
 interface GetPostsProps {
   searchQuery?: string;
+  authorId?: string;
 }
 
-export const getPosts = async ({ searchQuery }: GetPostsProps): Promise<PostType[]> => {
+export const getPosts = async ({ searchQuery, authorId }: GetPostsProps): Promise<PostType[]> => {
   const test = process.env.NEXT_PUBLIC_API_URL;
   console.log(test);
   const response = await axiosInstance.get('/posts', {
     params: {
       content_or_title_include: searchQuery,
+      author_id: authorId,
     },
   });
 

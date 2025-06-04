@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 interface StoreState {
   author: UserType | undefined;
-  setAuthor: (author: UserType) => void;
+  setAuthor: (author: UserType | undefined) => void;
 }
 
 const useStore = create<StoreState>((set) => ({

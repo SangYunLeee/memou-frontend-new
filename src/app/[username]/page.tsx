@@ -1,5 +1,6 @@
 import SearchInput from "@/app/[username]/_components/SearchInput";
 import SearchedPosts from "./_components/Posts.client";
+import StateSetter from "./StateSetter";
 
 export default async function UserPage(props: { params: Promise<{ username: string }> }) {
   const params = await props.params;
@@ -21,6 +22,7 @@ export default async function UserPage(props: { params: Promise<{ username: stri
           <SearchedPosts initialPosts={[]} />
         </section>
       </div>
+      <StateSetter username={params.username} />
     </main>
   );
 }
