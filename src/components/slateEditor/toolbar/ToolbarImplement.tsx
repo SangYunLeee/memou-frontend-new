@@ -4,9 +4,9 @@ import HeadingButton from "@/components/slateEditor/toolbar/HeadingButton";
 import BoldIcon from "./asset/boldIcon.svg";
 import ItalicIcon from "@/components/slateEditor/toolbar/asset/ItalicIcon.svg";
 
-const ToolbarImplement = () => {
+const ToolbarImplement = ({className}: {className?: string}) => {
   return (
-    <Toolbar className="toolbar relative mb-2 flex h-8">
+    <Toolbar className={`toolbar flex ${className}`}>
       <MarkButton format="bold" className="">
         <BoldIcon strokeWidth={0} className="opacity-60 h-7 w-7"/>
       </MarkButton>

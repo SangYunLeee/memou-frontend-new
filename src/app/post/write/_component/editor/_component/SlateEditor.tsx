@@ -17,7 +17,7 @@ export const defaultValue : Descendant[] = [
 
 // forwardRef 적용!
 const SlateEditorComponent = forwardRef(function SlateEditorComponent(
-  { className, initialValue }: { className?: string, initialValue?: Descendant[] },
+  { className, initialValue, children }: { className?: string, initialValue?: Descendant[], children?: React.ReactNode },
   ref
 ) {
   const [editor] = useState(() => withReact(withHistory(createEditor())));
@@ -49,7 +49,7 @@ const SlateEditorComponent = forwardRef(function SlateEditorComponent(
         />
       )}
     >
-      <ToolbarImplement />
+      {children}
     </SlateEditor>
   );
 });

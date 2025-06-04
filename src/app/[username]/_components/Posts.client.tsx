@@ -27,7 +27,7 @@ export default function SearchedPosts({initialPosts = [], username}: {initialPos
   }, [searchQuery, author]);
 
   return (
-    <div className="searchedPosts grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 gap-4">
+    <div className="searchedPosts grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
       {searchedPosts.map((post) => (
         <Post key={post.id} post={post}/>
       ))}
