@@ -2,10 +2,22 @@
 
 import { loginAction } from '@/actions/auth/loginAction';
 import SubmitButton from '@/components/auth/SummitButton';
-import React from 'react';
+import React, { useEffect } from 'react';
+import useAuthStore from '@/app/_hooks/useStoreMe';
+import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
+  const router = useRouter();
   const [state, formAction] = React.useActionState(loginAction, { error: "" });
+  const setUser = useAuthStore((s) => s.setUser);
+
+  // 로그인 액션이 성공적으로 끝났을 때(예: state.user가 있으면)
+  React.useEffect(() => {
+    if (state.user) {
+      setUser(state.user);
+      router.push('/');
+    }
+  }, [state.user, setUser, router]);
 
   return (
     <form className="mt-8 space-y-6" action={formAction}>
@@ -14,7 +26,7 @@ export default function LoginForm() {
           <div className="text-sm text-red-700">{state.error}</div>
         </div>
       )}
-      
+
       <div className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">

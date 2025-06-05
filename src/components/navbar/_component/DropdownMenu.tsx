@@ -5,11 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import DefaultAvatar from '@/assets/defaultAvatar.png';
 import { UserType } from '@/interfaces/user-type';
-import { logout } from '@/actions/auth/loginAction';
+import useAuthStore from '@/app/_hooks/useStoreMe';
+import { useRouter } from 'next/navigation';
 export default function DropdownMenu({ user }: { user: UserType }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const logout = useAuthStore((s) => s.logout);
+  const router = useRouter();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -53,8 +55,9 @@ export default function DropdownMenu({ user }: { user: UserType }) {
             설정
           </Link>
           <button 
-            onClick={async () => {
-              await logout();
+            onClick={() => {
+              logout();
+              router.push('/');
               setIsOpen(false);
             }}
             className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
