@@ -7,10 +7,13 @@ import { getPost } from "@/lib/post-client";
 import Image from "next/image";
 import DefaultAvatar from "@/assets/defaultAvatar.png";
 import { changeDateFormat } from "@/lib/date-helper";
+import useAuthStore from "@/app/_hooks/useStoreMe";
 
 export default function EditorWrapper({postId}: {postId?: string}) {
   const [post, setPost] = useState<PostType>();
+  const user = useAuthStore((s) => s.user);
   const editorRef = useRef<any>(null);
+  const isOwner = user?.id && (user.id === post?.author?.id);
 
   // 포스트 데이터 가져오기
   useEffect(() => {
