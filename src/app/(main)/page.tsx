@@ -1,6 +1,7 @@
 import { getPosts } from '@/lib/post';
 import SearchInput from './_components/SearchInput';
 import SearchedPosts from './_components/Posts.client';
+import StateSetter from './_components/StateSetter';
 
 export default async function Home() {
   const initialPosts = await getPosts({});
@@ -17,6 +18,7 @@ export default async function Home() {
         </div>
         <SearchedPosts initialPosts={initialPosts} />
       </main>
+      <StateSetter />
     </main>
   );
 }
