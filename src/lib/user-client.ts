@@ -1,4 +1,5 @@
 import { axiosInstance } from "./axios";
+import { UserType } from "@/interfaces/user-type";
 
 export const getCurrentUser = async () => {
   const response = await axiosInstance.get(`/users/me`);
@@ -18,4 +19,13 @@ export const login = async (email: string, password: string) => {
 
 export const logout = async () => {
   await axiosInstance.get(`/auth/logout`);
+};
+
+export const fetchAndUpdateUserProfile = async (setUser: (user: UserType) => void) => {
+  try {
+    const response = await axiosInstance.get('/users/me');
+    setUser(response.data.user);
+  } catch (error) {
+    console.error('프로필 정보를 가져오는데 실패했습니다:', error);
+  }
 };

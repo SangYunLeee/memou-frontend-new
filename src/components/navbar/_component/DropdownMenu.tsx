@@ -39,10 +39,11 @@ export default function DropdownMenu({ user }: { user: UserType }) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <Image
-          src={typeof user?.profileImage === 'string' ? user.profileImage : DefaultAvatar.src}
+          src={user?.profileImage?.url || DefaultAvatar}
           alt="프로필"
-          width={32}
-          height={32}
+          fill
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 17vw"
+          priority={false}
           className="object-cover"
         />
       </button>

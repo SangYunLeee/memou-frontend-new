@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[calc(100vh+1px)] flex flex-col`}
       >
         <Navbar />
-          {children}
+        {children}
       </body>
       <StateSetter />
     </html>

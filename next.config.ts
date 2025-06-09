@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: '**',
+      },
+    ],
+  },
   // TurboPack 설정
   turbopack: {
     rules: {
