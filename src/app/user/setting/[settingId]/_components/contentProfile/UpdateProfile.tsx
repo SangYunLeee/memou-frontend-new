@@ -31,7 +31,11 @@ export default function UpdateProfile({className}: {className: string}) {
   return (
     <form className={className} onSubmit={handleUpdateProfile}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="nickname" className="text-[1.0rem] text-gray-500">닉네임</label>
+          <label htmlFor="email" className="text-[1.0rem] text-gray-500">이메일</label>
+          <div className="text-[1.0rem] text-gray-500 ml-2">
+            {user?.email}
+          </div>
+          <label htmlFor="nickname" className="text-[1.0rem] text-gray-500 mt-2">닉네임</label>
           <input
             type="text"
             id="nickname"
