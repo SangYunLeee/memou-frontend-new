@@ -7,11 +7,20 @@ import DefaultAvatar from '@/assets/defaultAvatar.png';
 import { UserType } from '@/interfaces/user-type';
 import useAuthStore from '@/app/_hooks/useStoreMe';
 import { useRouter } from 'next/navigation';
+import { logout } from '@/lib/user-client';
 export default function DropdownMenu({ user }: { user: UserType }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const logout = useAuthStore((s) => s.logout);
+  const clearUser = useAuthStore((s) => s.logout);
   const router = useRouter();
+  const logoutHandler = async () => {
+    clearUser();
+    await logout();
+    console.log("logout");
+    router.push('/');
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -41,25 +50,21 @@ export default function DropdownMenu({ user }: { user: UserType }) {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-100">
           <Link 
-            href="/profile" 
+            href={`/${user.nickname}`} 
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             onClick={() => setIsOpen(false)}
           >
             프로필
           </Link>
           <Link 
-            href="/settings" 
+            href="/user/setting/profile" 
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             onClick={() => setIsOpen(false)}
           >
             설정
           </Link>
           <button 
-            onClick={() => {
-              logout();
-              router.push('/');
-              setIsOpen(false);
-            }}
+            onClick={logoutHandler}
             className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
           >
             로그아웃

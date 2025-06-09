@@ -1,4 +1,4 @@
-import { axiosInstance } from '@/lib/axios';
+import { login } from '@/lib/user-client';
 import { redirect } from 'next/navigation';
 
 export async function loginAction(prevState: any, formData: FormData) {
@@ -6,16 +6,9 @@ export async function loginAction(prevState: any, formData: FormData) {
   const password = formData.get('password') as string;
 
   try {
-    const response = await axiosInstance.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login/email`, {
-      email,
-      password,
-    });
-
-    if (response.status !== 200) {
-      throw new Error('로그인에 실패했습니다.');
-    }
+    const response = await login(email, password);
     return {
-      user: response.data.user,
+      user: response,
       error: '',
     }
   } catch (error) {
@@ -68,9 +61,4 @@ export async function signupAction(prevState: any, formData: FormData) {
   return {
     error: '',
   }
-}
-
-export async function logout() {
-  await axiosInstance.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`);
-  redirect("/");
 }

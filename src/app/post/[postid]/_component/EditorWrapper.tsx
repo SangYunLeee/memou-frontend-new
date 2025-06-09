@@ -7,10 +7,14 @@ import { getPost } from "@/lib/post-client";
 import Image from "next/image";
 import DefaultAvatar from "@/assets/defaultAvatar.png";
 import { changeDateFormat } from "@/lib/date-helper";
+import useAuthStore from "@/app/_hooks/useStoreMe";
+import Link from "next/link";
 
 export default function EditorWrapper({postId}: {postId?: string}) {
   const [post, setPost] = useState<PostType>();
+  const user = useAuthStore((s) => s.user);
   const editorRef = useRef<any>(null);
+  const isOwner = user?.id && (user.id === post?.author?.id);
 
   // 포스트 데이터 가져오기
   useEffect(() => {
@@ -55,6 +59,11 @@ export default function EditorWrapper({postId}: {postId?: string}) {
         <span className="text-gray-400 text-sm">
           {changeDateFormat(post?.createdAt || '')}
         </span>
+        {isOwner && (
+            <div className="flex items-center gap-2 ml-auto">
+              <Link href={`/post/write?postId=${postId}`}>수정</Link>
+            </div>
+          )}
       </div>
       {/* 포스트 내용 */}
       <SlateEditorComponent ref={editorRef} initialValue={post?.contentSlate} className="flex-1 focus:outline p-2" />
