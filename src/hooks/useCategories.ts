@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import { CategoryType } from "@/interfaces/category-type";
 import React from "react";
+import useMyCategoryStore from "@/app/_hooks/useStoreMyCategory";
 
 type returnType = {
-  categories: CategoryType[];
-  setCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>;
+  myCategories: CategoryType[];
+  setMyCategories: (myCategories: CategoryType[]) => void;
   isLoading: boolean;
   error: Error | null;
 };
 
 export function useCategories(): returnType {
-  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const { myCategories, setMyCategories } = useMyCategoryStore();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -24,14 +25,14 @@ export function useCategories(): returnType {
         const response = await axiosInstance.get(`/categories/me`);
 
         if (isMounted) {
-          setCategories(response.data);
+          setMyCategories(response.data);
           setError(null);
         }
       } catch (error) {
         if (isMounted) {
           console.error("Failed to fetch categories:", error);
           setError(error instanceof Error ? error : new Error('Failed to fetch categories'));
-          setCategories([]);
+          setMyCategories([]);
         }
       } finally {
         if (isMounted) {
@@ -40,6 +41,11 @@ export function useCategories(): returnType {
       }
     };
 
+    if (myCategories.length > 0) {
+      setIsLoading(false);
+      return;
+    }
+
     fetchCategories();
 
     return () => {
@@ -47,5 +53,5 @@ export function useCategories(): returnType {
     };
   }, []);
 
-  return { categories, setCategories, isLoading, error };
+  return { myCategories, setMyCategories, isLoading, error };
 }

@@ -6,7 +6,7 @@ export default async function UserPage(props: { params: Promise<{ username: stri
   const params = await props.params;
   return (
     <main className="px-1 sm:px-8 lg:px-8 py-8 flex-1 flex">
-      <div className="w-full grid grid-cols-[230px_calc(100%-230px)] gap-6 max-w-5xl mx-auto">
+      <div className="w-full grid grid-cols-[230px_auto] gap-6 max-w-5xl mx-auto">
         {/* 왼쪽 사이드바 */}
         <aside className="bg-purple-50 rounded-lg p-4">
           {/* 사이드바 내용 */}

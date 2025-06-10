@@ -9,8 +9,8 @@ import { UniqueIdentifier } from "@dnd-kit/core";
 import { axiosInstance } from "@/lib/axios";
 
 export default function ContentCategory() {
-  const { categories, setCategories, isLoading, error } = useCategories();
-  const originItems = useMemo(() => convert(categories), [categories]);
+  const { myCategories, setMyCategories, isLoading, error } = useCategories();
+  const originItems = useMemo(() => convert(myCategories), [myCategories]);
   const [items, setItems] = useState<TreeItem[]>([]);
   const flattenedItems = useMemo(() => flattenTree(items), [items]);
   const [newCategoryId, setNewCategoryId] = useState(-1);
@@ -66,7 +66,7 @@ export default function ContentCategory() {
     });
 
     console.log('response', response.data.categories);
-    setCategories(response.data.categories);
+    setMyCategories(response.data.categories);
     alert('카테고리 변경사항이 적용되었습니다.');
   };
 
