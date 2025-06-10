@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import { CategoryType } from "@/interfaces/category-type";
-import React from "react";
-import useMyCategoryStore from "@/app/_hooks/useStoreMyCategory";
+import useMyCategoryStore from "@/store/useStoreMyCategory";
 
 type returnType = {
   myCategories: CategoryType[];

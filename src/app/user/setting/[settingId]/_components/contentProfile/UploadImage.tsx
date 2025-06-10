@@ -1,6 +1,6 @@
 import Image from "next/image";
 import DefaultAvatar from "@/assets/defaultAvatar.png";
-import useAuthStore from "@/app/_hooks/useStoreMe";
+import useAuthStore from "@/store/useStoreMe";
 import { axiosInstance } from "@/lib/axios";
 import { fetchAndUpdateUserProfile } from "@/lib/user-client";
 

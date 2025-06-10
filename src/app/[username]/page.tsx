@@ -1,6 +1,7 @@
 import SearchInput from "@/app/[username]/_components/SearchInput";
 import SearchedPosts from "./_components/Posts.client";
 import StateSetter from "./StateSetter";
+import SideBar from "./_components/sideBar/SideBar";
 
 export default async function UserPage(props: { params: Promise<{ username: string }> }) {
   const params = await props.params;
@@ -9,7 +10,7 @@ export default async function UserPage(props: { params: Promise<{ username: stri
       <div className="w-full grid grid-cols-[230px_auto] gap-6 max-w-5xl mx-auto">
         {/* 왼쪽 사이드바 */}
         <aside className="bg-purple-50 rounded-lg p-4">
-          {/* 사이드바 내용 */}
+          <SideBar className="bg-purple-50 rounded-lg p-4" authorName={params.username} />
         </aside>
 
         {/* 오른쪽 게시글 리스트 */}

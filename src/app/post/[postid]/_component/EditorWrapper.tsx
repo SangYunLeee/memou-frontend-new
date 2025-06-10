@@ -7,7 +7,7 @@ import { getPost } from "@/lib/post-client";
 import Image from "next/image";
 import DefaultAvatar from "@/assets/defaultAvatar.png";
 import { changeDateFormat } from "@/lib/date-helper";
-import useAuthStore from "@/app/_hooks/useStoreMe";
+import useAuthStore from "@/store/useStoreMe";
 import Link from "next/link";
 
 export default function EditorWrapper({postId}: {postId?: string}) {

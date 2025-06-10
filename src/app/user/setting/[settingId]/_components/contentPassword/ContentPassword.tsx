@@ -1,5 +1,5 @@
 'use client';
-import useAuthStore from "@/app/_hooks/useStoreMe";
+import useAuthStore from "@/store/useStoreMe";
 import { useRef } from "react";
 import { handleChangePassword, validatePassword, validatePasswordMatch } from './ContentPassword.fn';
 

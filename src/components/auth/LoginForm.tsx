@@ -3,7 +3,7 @@
 import { loginAction } from '@/actions/auth/loginAction';
 import SubmitButton from '@/components/auth/SummitButton';
 import React, { useEffect } from 'react';
-import useAuthStore from '@/app/_hooks/useStoreMe';
+import useAuthStore from '@/store/useStoreMe';
 import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {

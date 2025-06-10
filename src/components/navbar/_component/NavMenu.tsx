@@ -1,6 +1,6 @@
 'use client';
 
-import useAuthStore from '@/app/_hooks/useStoreMe';
+import useAuthStore from '@/store/useStoreMe';
 import Link from 'next/link';
 import { NavLink } from './NavLink';
 import DropdownMenu from './DropdownMenu';

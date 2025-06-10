@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from "react";
-import useAuthStore from '@/app/_hooks/useStoreMe';
+import useAuthStore from '@/store/useStoreMe';
 import { getCurrentUser } from "@/lib/user-client";
 export default function StateSetter() {
   const {setUser, logout} = useAuthStore();

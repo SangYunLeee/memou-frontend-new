@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import DefaultAvatar from '@/assets/defaultAvatar.png';
 import { UserType } from '@/interfaces/user-type';
-import useAuthStore from '@/app/_hooks/useStoreMe';
+import useAuthStore from '@/store/useStoreMe';
 import { useRouter } from 'next/navigation';
 import { logout } from '@/lib/user-client';
 export default function DropdownMenu({ user }: { user: UserType }) {
