@@ -10,8 +10,8 @@ export default function SideBar({className, settingId}: {className: string, sett
       <Link href="/user/setting/password" className={isActive("password") ? "text-blue-500" : ""}>
         <p>비밀번호 설정</p>
       </Link>
-      <Link href="/user/setting/notification" className={isActive("notification") ? "text-blue-500" : ""}>
-        <p>알림 설정</p>
+      <Link href="/user/setting/category" className={isActive("category") ? "text-blue-500" : ""}>
+        <p>카테고리 설정</p>
       </Link>
     </div>
   );
