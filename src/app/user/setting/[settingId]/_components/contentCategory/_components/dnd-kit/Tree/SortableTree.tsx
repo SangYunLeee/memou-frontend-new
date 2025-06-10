@@ -289,11 +289,10 @@ export function SortableTree({
   }
 
   function handleCollapse(id: UniqueIdentifier) {
-    setItems((items) =>
-      setProperty(items, id, 'collapsed', (value) => {
-        return !value;
-      })
-    );
+    const newItems = setProperty(items, id, 'collapsed', (value) => {
+      return !value;
+    });
+    setItems(newItems);
   }
 }
 
