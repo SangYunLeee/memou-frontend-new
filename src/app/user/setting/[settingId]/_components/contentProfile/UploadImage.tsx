@@ -3,6 +3,7 @@ import DefaultAvatar from "@/assets/defaultAvatar.png";
 import useAuthStore from "@/store/useStoreMe";
 import { axiosInstance } from "@/lib/axios";
 import { fetchAndUpdateUserProfile } from "@/lib/user-client";
+import { revalidatePosts } from "@/actions/postAction";
 
 const uploadImage = async (file: File) => {
   try {
@@ -14,6 +15,7 @@ const uploadImage = async (file: File) => {
     await axiosInstance.put('/users/me/profile/images', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
+    await revalidatePosts();
     alert('프로필 이미지가 성공적으로 업데이트되었습니다.');
   } catch (error) {
     alert('프로필 이미지 업로드에 실패했습니다. 다시 시도해주세요.');

@@ -7,6 +7,7 @@ import { flattenTree } from "./_components/dnd-kit/Tree/utilities";
 import { SortableTree } from "./_components/dnd-kit/Tree/SortableTree";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { axiosInstance } from "@/lib/axios";
+import { revalidatePosts } from "@/actions/postAction";
 
 export default function ContentCategory() {
   const { myCategories, setMyCategories, isLoading, error } = useCategories();
@@ -64,7 +65,6 @@ export default function ContentCategory() {
       categoriesToAdd: addedItems,
       categoriesToUpdate: changedItems,
     });
-
     console.log('response', response.data.categories);
     setMyCategories(response.data.categories);
     alert('카테고리 변경사항이 적용되었습니다.');

@@ -2,6 +2,7 @@ import useAuthStore from "@/store/useStoreMe";
 import { axiosInstance } from "@/lib/axios";
 import { fetchAndUpdateUserProfile } from "@/lib/user-client";
 import { useRef } from "react";
+import { revalidatePosts } from "@/actions/postAction";
 
 export default function UpdateProfile({className}: {className: string}) {
   const {user, setUser} = useAuthStore();
@@ -22,6 +23,7 @@ export default function UpdateProfile({className}: {className: string}) {
 
       alert('프로필이 성공적으로 업데이트되었습니다.');
       fetchAndUpdateUserProfile(setUser);
+      await revalidatePosts();
     } catch (error) {
       console.error('프로필 업데이트에 실패했습니다:', error);
       alert('프로필 업데이트에 실패했습니다. 다시 시도해주세요.');

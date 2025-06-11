@@ -34,9 +34,15 @@ export default function SearchedPosts({initialPosts = []}: {initialPosts: PostTy
   }
 
   return (
-    <div className="searchedPosts grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} className="
+        border border-gray-300
+        rounded-lg
+        hover:shadow-md transition-shadow transition-all
+        h-[180px]
+        hover:border-indigo-300
+        p-0"/>
       ))}
     </div>
   );

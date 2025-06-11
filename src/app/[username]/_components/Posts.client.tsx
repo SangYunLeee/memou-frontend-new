@@ -7,7 +7,7 @@ import { PostType } from "@/interfaces/post-type";
 import Post from "@/components/poster/post";
 import useAuthorStore from "@/app/[username]/_hooks/useStoreAuthor";
 
-export default function SearchedPosts({initialPosts = [], username}: {initialPosts: PostType[], username?: string}) {
+export default function SearchedPosts({className, initialPosts = [], username}: {className: string, initialPosts: PostType[], username?: string}) {
   const { searchQuery } = useStore();
   const [searchedPosts, setSearchedPosts] = useState<PostType[]>(initialPosts);
   const { author } = useAuthorStore();
@@ -27,9 +27,17 @@ export default function SearchedPosts({initialPosts = [], username}: {initialPos
   }, [searchQuery, author]);
 
   return (
-    <div className="searchedPosts grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+    <div className={`${className}`}>
       {searchedPosts.map((post) => (
-        <Post key={post.id} post={post}/>
+        <Post key={post.id} className="
+            border border-gray-300
+            rounded-lg
+            hover:shadow-md transition-shadow transition-all
+            h-[180px]
+            hover:border-indigo-300
+            p-0" post={post}
+            authorView={false}
+            />
       ))}
     </div>
   );

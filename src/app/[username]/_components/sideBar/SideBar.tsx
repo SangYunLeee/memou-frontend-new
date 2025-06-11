@@ -1,12 +1,38 @@
 'use client';
 import { useAuthor } from "@/hooks/useAuthor";
-import Link from "next/link";
+import { SortableTree } from "./SortableTree/SortableTree";
+import { useEffect, useState } from "react";
+import { TreeItem } from "./SortableTree/types";
+import { CategoryTreeItem } from "./SortableTreeItem/CategoryTreeItem";
+import { flattenTree } from "./SortableTree/utilities";
+import { UniqueIdentifier } from "@dnd-kit/core";
+import { useRouter } from "next/navigation";
+import { convert } from "@/app/user/setting/[settingId]/_components/contentCategory/ContentCategory.fn";
 
 export default function SideBar({className, authorName}: {className: string, authorName: string}) {
   const { author, categories, setCategories, isLoading } = useAuthor({authorName});
+  const [items, setItems] = useState<TreeItem[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading) {
+      setItems(convert(categories));
+    }
+  }, [categories, isLoading]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className={className}>Loading...</div>;
+  }
+
+  const onContentClick = (id: UniqueIdentifier) => {
+    const flattenedItems = flattenTree(items);
+    const category = flattenedItems.find((item) => item.id === id);
+    const parentCategory = category?.parentId ? flattenedItems.find((item) => item.id === category?.parentId) : null;
+    if (parentCategory) {
+      router.push(`/${author?.nickname}?category=${parentCategory?.name.replaceAll(' ', '+')}&subCategory=${category?.name.replaceAll(' ', '+')}`);
+    } else {
+      router.push(`/${author?.nickname}?category=${category?.name.replaceAll(' ', '+')}`);
+    }
   }
 
   return (
@@ -19,7 +45,7 @@ export default function SideBar({className, authorName}: {className: string, aut
         />
         <p className="nickname">{author?.nickname}</p>
       </div>
-      <h1>{categories.map((category) => category.categoryName).join(', ')}</h1>
+      <SortableTree collapsible items={items} setItems={setItems} renderItem={CategoryTreeItem} onContentClick={onContentClick} />
     </div>
   );
 }

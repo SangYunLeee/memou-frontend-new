@@ -5,6 +5,7 @@ import { axiosInstance } from "@/lib/axios";
 import { CategoryType } from "@/interfaces/category-type";
 import useAuthorStore from "@/store/useStoreAuthor";
 import { UserType } from "@/interfaces/user-type";
+import { getAuthor } from "@/lib/author-client";
 
 type returnType = {
   author: UserType | null;
@@ -22,14 +23,12 @@ export function useAuthor({authorName}: {authorName: string}): returnType {
     const decodedAuthorName = decodeURIComponent(authorName);
     if (author?.nickname === decodedAuthorName) return;
     try {
-      const response = await axiosInstance.get(`/users/nickname/${decodedAuthorName}`);
-      if (author?.id !== response.data.user.id) {
-        setAuthor(response.data.user);
-        const categoriesResponse = await axiosInstance.get(`/categories`, {
-          params: { authorId: response.data.user.id }
-        });
-        setCategories(categoriesResponse.data.categories);
-      }
+      const _author = await getAuthor({username: decodedAuthorName});
+      setAuthor(_author);
+      const categoriesResponse = await axiosInstance.get(`/categories`, {
+        params: { authorId: _author.id }
+      });
+      setCategories(categoriesResponse.data.categories);
     } catch (error) {
       console.error("Failed to fetch user or categories:", error);
     }
