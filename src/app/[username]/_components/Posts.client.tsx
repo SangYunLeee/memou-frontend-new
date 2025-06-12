@@ -6,11 +6,20 @@ import { useState, useEffect } from 'react';
 import { PostType } from "@/interfaces/post-type";
 import Post from "@/components/poster/post";
 import useAuthorStore from "@/app/[username]/_hooks/useStoreAuthor";
+import { useAuthor } from "@/hooks/useAuthor";
+import { useSearchParams } from 'next/navigation';
 
-export default function SearchedPosts({className, initialPosts = [], username}: {className: string, initialPosts: PostType[], username?: string}) {
+export default function SearchedPosts({className, initialPosts = [], username}: {className: string, initialPosts: PostType[], username: string}) {
   const { searchQuery } = useStore();
   const [searchedPosts, setSearchedPosts] = useState<PostType[]>(initialPosts);
-  const { author } = useAuthorStore();
+  const { author, categories, setCategories, isLoading } = useAuthor({authorName: username});
+  const searchParams = useSearchParams();
+  const mainCategoryName = searchParams.get('category');
+  const subCategoryName = searchParams.get('subCategory');
+
+  useEffect(() => {
+    const searchTargetCategory = subCategoryName ? subCategoryName : mainCategoryName;
+  }, [mainCategoryName, subCategoryName]);
 
   useEffect(() => {
     const fetchPosts = async () => {

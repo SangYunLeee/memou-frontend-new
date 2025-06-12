@@ -4,15 +4,17 @@ import { axiosInstance } from "./axios";
 interface GetPostsProps {
   searchQuery?: string;
   authorId?: string;
+  categoryIds?: string[];
 }
 
-export const getPosts = async ({ searchQuery, authorId }: GetPostsProps): Promise<PostType[]> => {
+export const getPosts = async ({ searchQuery, authorId, categoryIds }: GetPostsProps): Promise<PostType[]> => {
   const test = process.env.NEXT_PUBLIC_API_URL;
   console.log(test);
   const response = await axiosInstance.get('/posts', {
     params: {
       content_or_title_include: searchQuery,
       author_id: authorId,
+      category_ids: categoryIds?.join(','),
     },
   });
 
