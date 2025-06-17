@@ -1,6 +1,7 @@
 import { useCategories } from "@/hooks/useMyCategories";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { CategoryType } from "@/interfaces/category-type";
+import { flattenItems } from "@/lib/utility";
 
 const CategoryOption = forwardRef<{ current: CategoryType | null }, {className: string, initialValue?: number}>(({className, initialValue}, ref) => { 
   const { myCategories, isLoading } = useCategories();
@@ -26,10 +27,6 @@ const CategoryOption = forwardRef<{ current: CategoryType | null }, {className: 
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  const flattenItems = (items: CategoryType[]) => {
-    return items.flatMap(item => [item, ...flattenItems(item.children || [])]);
-  };
 
   useEffect(() => {
     if (initialValue && myCategories) {

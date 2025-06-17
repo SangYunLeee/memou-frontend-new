@@ -54,7 +54,7 @@ export default function EditorWrapper({postId}: {postId?: string}) {
     })
     const updatedPost = await handlePostSubmission({post: sendPostData, postId: postId ? Number(postId) : undefined})
     await revalidatePosts()
-    router.push(`/post/${updatedPost.id}`);
+    router.push(`/${updatedPost.author?.nickname}/post/${updatedPost.id}`);
   }
 
   return (

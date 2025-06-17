@@ -9,4 +9,5 @@ export interface CategoryType {
   postCount: number;
   children: CategoryType[];
   parentId?: number;
+  parent?: CategoryType;
 }

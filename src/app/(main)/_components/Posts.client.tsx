@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { PostType } from "@/interfaces/post-type";
 import Post from "@/components/poster/post";
 
-export default function SearchedPosts({initialPosts = []}: {initialPosts: PostType[]}) {
+export default function SearchedPosts({initialPosts = [], className}: {initialPosts: PostType[], className: string}) {
   const { searchQuery } = useStore();
   const [searchedPosts, setSearchedPosts] = useState<PostType[]>(initialPosts);
   const isSearched = searchQuery !== '';
@@ -34,7 +34,7 @@ export default function SearchedPosts({initialPosts = []}: {initialPosts: PostTy
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <div className={className}>
       {posts.map((post) => (
         <Post key={post.id} post={post} className="
         border border-gray-300

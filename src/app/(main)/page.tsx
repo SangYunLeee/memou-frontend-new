@@ -13,10 +13,7 @@ export default async function Home() {
           <h1 className="text-2xl font-bold text-gray-900">게시글 목록</h1>
           <SearchInput />
         </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 ">
-        </div>
-        <SearchedPosts initialPosts={initialPosts} />
+        <SearchedPosts initialPosts={initialPosts} className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4" />
       </main>
       <StateSetter />
     </main>

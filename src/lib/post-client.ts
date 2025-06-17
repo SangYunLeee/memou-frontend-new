@@ -9,8 +9,6 @@ interface GetPostsProps {
 }
 
 export const getPosts = async ({ searchQuery, authorId, selectedCategory }: GetPostsProps): Promise<PostType[]> => {
-  const test = process.env.NEXT_PUBLIC_API_URL;
-  console.log(test);
   const response = await axiosInstance.get('/posts', {
     params: {
       content_or_title_include: searchQuery,

@@ -8,7 +8,7 @@ export default function Post({ className, post, authorView = true }: { className
   return (
     <article key={post.id} className={`${className}`}>
       <div className="flex flex-col h-full">
-        <Link href={`/post/${post.id}`} className="flex-1 p-2">
+        <Link href={`/${post.author.nickname}/post/${post.id}`} className="flex-1 p-2">
           <h4 className="text-lg font-semibold mb-1.5 line-clamp-2 text-gray-800">
             {post.title}
           </h4>

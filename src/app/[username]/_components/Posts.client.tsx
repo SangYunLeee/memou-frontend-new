@@ -1,34 +1,28 @@
 'use client';
 
 import { getPosts } from "@/lib/post-client";
-import useStore from '@/app/[username]/_hooks/useStoreSearchquery';
+import useStore from '@/app/[username]/_store/useStoreSearchquery';
 import { useState, useEffect } from 'react';
 import { PostType } from "@/interfaces/post-type";
 import { CategoryType } from "@/interfaces/category-type";
 import Post from "@/components/poster/post";
 import useAuthorStore from "@/store/useStoreAuthor";
 import { useSearchParams } from 'next/navigation';
+import useAuthorCategoryStore from "../_store/useStoreAuthorCategory";
 
 export default function SearchedPosts({className, initialPosts = [], username}: {className: string, initialPosts: PostType[], username: string}) {
   const { searchQuery } = useStore();
   const [searchedPosts, setSearchedPosts] = useState<PostType[]>(initialPosts);
   const { author, categories } = useAuthorStore();
-
-  const searchParams = useSearchParams();
-  const mainCategoryName = searchParams.get('category');
-  const subCategoryName = searchParams.get('subCategory');
-  let selectedLevel1Category: CategoryType | undefined = undefined;
-  let selectedLevel2Category: CategoryType | undefined = undefined;
-  if (categories) {
-    selectedLevel1Category = categories.find((category) => category.categoryName === mainCategoryName);
-    selectedLevel2Category = selectedLevel1Category?.children.find((category) => category.categoryName === subCategoryName);
-  }
-  const selectedCategory = selectedLevel2Category ? selectedLevel2Category : selectedLevel1Category;
+  const { selectedCategory } = useAuthorCategoryStore();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const data = await getPosts({ searchQuery, authorId: author?.id?.toString(), selectedCategory });
+        if (selectedCategory === undefined) {
+          return;
+        }
+        const data = await getPosts({ searchQuery, authorId: author?.id?.toString(), selectedCategory: selectedCategory ?? undefined });
         setSearchedPosts(data);
       } catch (error) {
         console.error('Error fetching posts:', error);

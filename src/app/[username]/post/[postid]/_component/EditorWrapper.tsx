@@ -43,13 +43,13 @@ export default function EditorWrapper({postId}: {postId?: string}) {
       {/* 작성자 정보와 날짜 */}
       <div className="flex items-center gap-3 py-0">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full overflow-hidden">
+          <div className="w-8 h-8 rounded-full overflow-hidden object-cover">
             <Image 
               src={post?.author.profileImage?.url || DefaultAvatar} 
               alt="프로필 이미지" 
               width={32} 
               height={32}
-              className="object-cover"
+              className="w-full h-full"
             />
           </div>
           <span className="text-gray-700 font-medium">

@@ -1,6 +1,6 @@
 'use client';
 
-import useStore from '@/app/[username]/_hooks/useStoreSearchquery';
+import useStore from '@/app/[username]/_store/useStoreSearchquery';
 
 export default function SearchInput({className}: {className?: string}) {
   const { searchQuery, setSearchQuery } = useStore();
