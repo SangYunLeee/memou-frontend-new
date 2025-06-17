@@ -30,7 +30,7 @@ export default async function UserPage(props: { params: Promise<{ username: stri
               grid-cols-1
               sm:grid-cols-2
               lg:grid-cols-3
-              gap-2" initialPosts={[]} />
+              gap-2" initialPosts={[]} username={params.username} />
         </section>
       </div>
       <StateSetter username={params.username} />

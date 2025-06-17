@@ -1,5 +1,6 @@
 import { UserType } from "./user-type";
 import { CustomElement } from "./slate.d";
+import { CategoryType } from "./category-type";
 
 export interface PostType {
   id: string;
@@ -27,17 +28,6 @@ export enum PostStatus {
   PUBLISHED = 2, // 게시판에서 작성한 글
   UNREGISTERED = 3, // 게시글의 일부만 올라가 있는 경우 (이미지 등을 업로드하여 자동 임시 저장이 되어있으나 게시글 작성이 완료되지 않은 경우)
 }
-
-export interface CategoryType {
-  id: number;
-  categoryName: string;
-  pos: number;
-  user: UserType;
-  tempPostCount: number;
-  postCount: number;
-  children: CategoryType[];
-}
-
 export interface PostFile {
   id: number;
   originalFilename: string;

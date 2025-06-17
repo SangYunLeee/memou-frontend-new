@@ -15,8 +15,7 @@ type returnType = {
 };
 
 export function useAuthor({authorName}: {authorName: string}): returnType {
-  const { author, setAuthor, clearAuthor } = useAuthorStore();
-  const { categories, setCategories, clearCategories } = useAuthorStore();
+  const { author, setAuthor, categories, setCategories, clearAuthor, clearCategories } = useAuthorStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchAuthorInformation = useCallback(async () => {
@@ -36,7 +35,11 @@ export function useAuthor({authorName}: {authorName: string}): returnType {
 
   useEffect(() => {
     fetchAuthorInformation();
-  }, [fetchAuthorInformation]);
+    return () => {
+      clearAuthor();
+      clearCategories();
+    }
+  }, []);
 
   if (author?.nickname !== authorName) {
     return { author: null, categories: [], setCategories: () => {}, isLoading: true };

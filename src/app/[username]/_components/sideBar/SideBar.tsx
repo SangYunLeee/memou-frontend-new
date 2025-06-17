@@ -8,21 +8,19 @@ import { flattenTree } from "./SortableTree/utilities";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useRouter } from "next/navigation";
 import { convert } from "@/app/user/setting/[settingId]/_components/contentCategory/ContentCategory.fn";
+import useAuthorStore from "@/store/useStoreAuthor";
+import DefaultAvatar from '@/assets/defaultAvatar.png';
+import Image from 'next/image';
 
 export default function SideBar({className, authorName}: {className: string, authorName: string}) {
-  const { author, categories, setCategories, isLoading } = useAuthor({authorName});
+  const { author, categories } = useAuthorStore();
   const [items, setItems] = useState<TreeItem[]>([]);
   const router = useRouter();
+  console.log("111categories", categories);
 
   useEffect(() => {
-    if (!isLoading) {
-      setItems(convert(categories));
-    }
-  }, [categories, isLoading]);
-
-  if (isLoading) {
-    return <div className={className}>Loading...</div>;
-  }
+    setItems(convert(categories));
+  }, [categories]);
 
   const onContentClick = (id: UniqueIdentifier) => {
     const flattenedItems = flattenTree(items);
@@ -38,14 +36,21 @@ export default function SideBar({className, authorName}: {className: string, aut
   return (
     <div className={className}>
       <div className="flex flex-col items-center">
-        <img
-          src={author?.profileImage?.url || '/defaultAvatar.png'}
-          alt={`${author?.nickname}의 프로필`}
-          className="rounded-full w-20 h-20"
-        />
+        {/* 프로필 이미지 */}
+        <div className="relative w-20 h-20 rounded-full overflow-hidden">
+          <Image
+            src={author?.profileImage?.url || DefaultAvatar}
+            alt={`${author?.nickname}의 프로필`}
+            fill
+          />
+        </div>
+        {/* 닉네임 */}
         <p className="nickname">{author?.nickname}</p>
       </div>
-      <SortableTree collapsible items={items} setItems={setItems} renderItem={CategoryTreeItem} onContentClick={onContentClick} />
+      {/* 카테고리 트리 */}
+      <div className="mt-4">
+        <SortableTree collapsible items={items} setItems={setItems} renderItem={CategoryTreeItem} onContentClick={onContentClick} />
+      </div>
     </div>
   );
 }

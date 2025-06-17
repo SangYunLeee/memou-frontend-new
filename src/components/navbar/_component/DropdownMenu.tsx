@@ -16,7 +16,6 @@ export default function DropdownMenu({ user }: { user: UserType }) {
   const logoutHandler = async () => {
     clearUser();
     await logout();
-    console.log("logout");
     router.push('/');
     setIsOpen(false);
   };
