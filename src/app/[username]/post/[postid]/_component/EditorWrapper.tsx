@@ -1,38 +1,13 @@
 'use client'
-import { useEffect, useRef, useState } from "react";
 import SlateEditorComponent from "./editor/SlateEditor";
-import { updateEditorContent } from "@/components/slateEditor/helper";
-import { PostType } from "@/interfaces/post-type";
-import { getPost } from "@/lib/post-client";
 import Image from "next/image";
 import DefaultAvatar from "@/assets/defaultAvatar.png";
 import { changeDateFormat } from "@/lib/date-helper";
-import useAuthStore from "@/store/useStoreMe";
 import Link from "next/link";
+import { useEditorWrapper } from "./EditorWrapper.fn";
 
 export default function EditorWrapper({postId}: {postId?: string}) {
-  const [post, setPost] = useState<PostType>();
-  const user = useAuthStore((s) => s.user);
-  const editorRef = useRef<any>(null);
-  const isOwner = user?.id && (user.id === post?.author?.id);
-
-  // 포스트 데이터 가져오기
-  useEffect(() => {
-    if (postId) {
-      getPost({postId}).then(setPost);
-    }
-    return () => {
-      setPost(undefined);
-    }
-  }, [postId]);
-
-  // 포스트 데이터 업데이트
-  useEffect(() => {
-    if (post) {
-      // 포스트 내용 업데이트
-      updateEditorContent(editorRef.current?.editor, post?.contentSlate || [])
-    }
-  }, [post])
+  const { post, editorRef, isOwner, handleDelete } = useEditorWrapper(postId);
 
   return (
     <>
@@ -62,6 +37,7 @@ export default function EditorWrapper({postId}: {postId?: string}) {
         {isOwner && (
             <div className="flex items-center gap-2 ml-auto">
               <Link href={`/post/write?postId=${postId}`}>수정</Link>
+              <button onClick={handleDelete}>삭제</button>
             </div>
           )}
       </div>
