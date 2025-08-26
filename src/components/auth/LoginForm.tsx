@@ -1,29 +1,46 @@
 'use client';
 
-import { loginAction } from '@/actions/auth/loginAction';
 import SubmitButton from '@/components/auth/SummitButton';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import useAuthStore from '@/store/useStoreMe';
 import { useRouter } from 'next/navigation';
+import { login } from '@/lib/user-client';
 
 export default function LoginForm() {
   const router = useRouter();
-  const [state, formAction] = React.useActionState(loginAction, { error: "" });
   const setUser = useAuthStore((s) => s.setUser);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // 로그인 액션이 성공적으로 끝났을 때(예: state.user가 있으면)
-  React.useEffect(() => {
-    if (state.user) {
-      setUser(state.user);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    try {
+      const user = await login(email, password);
+      setUser(user);
       router.push('/');
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.response?.data?.message || '로그인 중 오류가 발생했습니다.');
+      } else {
+        setError('로그인 중 오류가 발생했습니다.');
+      }
+    } finally {
+      setIsLoading(false);
     }
-  }, [state.user, setUser, router]);
+  };
 
   return (
-    <form className="mt-8 space-y-6" action={formAction}>
-      {state.error && (
+    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      {error && (
         <div className="rounded-md bg-red-50 p-4">
-          <div className="text-sm text-red-700">{state.error}</div>
+          <div className="text-sm text-red-700">{error}</div>
         </div>
       )}
 
@@ -59,7 +76,7 @@ export default function LoginForm() {
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <input
             id="remember-me"
             name="remember-me"
@@ -69,17 +86,17 @@ export default function LoginForm() {
           <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
             로그인 상태 유지
           </label>
-        </div>
+        </div> */}
 
-        <div className="text-sm">
+        {/* <div className="text-sm">
           <a href="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
             비밀번호를 잊으셨나요?
           </a>
-        </div>
+        </div> */}
       </div>
 
       <div>
-        <SubmitButton />
+        <SubmitButton disabled={isLoading} loadingText="로그인 중..." defaultText="로그인" />
       </div>
     </form>
   );

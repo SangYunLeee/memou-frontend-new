@@ -1,17 +1,46 @@
 'use client';
 
-import { signupAction } from '@/actions/auth/loginAction';
 import SubmitButton from '@/components/auth/SummitButton';
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signup } from '@/lib/user-client';
 
 export default function SignupForm() {
-  const [state, formAction] = React.useActionState(signupAction, { error: "" });
+  const router = useRouter();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const nickname = formData.get('nickname') as string;
+
+    console.log('전송할 데이터:', { email, password, nickname });
+
+    try {
+      await signup(email, password, nickname);
+      router.push('/');
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message || '회원가입 중 오류가 발생했습니다.');
+      } else {
+        setError('회원가입 중 오류가 발생했습니다.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <form className="mt-8 space-y-6" action={formAction}>
-      {state.error && (
+    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      {error && (
         <div className="rounded-md bg-red-50 p-4">
-          <div className="text-sm text-red-700">{state.error}</div>
+          <div className="text-sm text-red-700">{error}</div>
         </div>
       )}
       
@@ -60,7 +89,7 @@ export default function SignupForm() {
       </div>
 
       <div>
-        <SubmitButton />
+        <SubmitButton disabled={isLoading} loadingText="회원가입 중..." defaultText="회원가입" />
       </div>
     </form>
   );

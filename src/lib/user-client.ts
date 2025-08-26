@@ -17,6 +17,18 @@ export const login = async (email: string, password: string) => {
   return response.data.user;
 };
 
+export const signup = async (email: string, password: string, nickname: string) => {
+  const response = await axiosInstance.post(`/auth/register/email`, {
+    email,
+    password,
+    nickname,
+  });
+  if (response.status !== 200) {
+    throw new Error('회원가입에 실패했습니다.');
+  }
+  return response.data;
+};
+
 export const logout = async () => {
   await axiosInstance.get(`/auth/logout`);
 };
