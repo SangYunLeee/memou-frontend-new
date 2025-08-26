@@ -32,6 +32,8 @@ export async function signupAction(prevState: any, formData: FormData) {
   const password = formData.get('password') as string;
   const nickname = formData.get('nickname') as string;
 
+  console.log(email, password, nickname);
+
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register/email`, {
       method: 'POST',
@@ -42,8 +44,10 @@ export async function signupAction(prevState: any, formData: FormData) {
       body: JSON.stringify({ email, password, nickname }),
     });
 
+    console.log("response", response);
+
     if (!response.ok) {
-      throw new Error('회원가입에 실패했습니다.');
+      throw new Error(`회원가입에 실패했습니다. ${response.statusText}`);
     }
 
     redirect('/');
