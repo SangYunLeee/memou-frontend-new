@@ -72,11 +72,11 @@ export default function EditorWrapper({postId}: {postId?: string}) {
       </SlateEditorComponent>
       {/* 등록하기 버튼 */}
       <div className="flex justify-end">
-      <button 
-        className="bg-[#12b886] text-white p-1 px-2 rounded-md hover:bg-[#0ca678] transition-colors text-lg" 
-        onClick={handleSave}>
-        {isEdit ? '수정하기' : '등록하기'}
-      </button>
+        <button 
+          className="bg-[#12b886] text-white p-1 px-2 rounded-md hover:bg-[#0ca678] transition-colors text-lg" 
+          onClick={handleSave}>
+          {isEdit ? '수정하기' : '등록하기'}
+        </button>
       </div>
     </>
   );
