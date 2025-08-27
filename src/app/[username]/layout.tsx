@@ -1,4 +1,4 @@
-import SideBar from "./_components/SideBar/SideBar";
+import SideBar from "./_components/sideBar/SideBar";
 import StateSetter from "./_components/StateSetter";
 export default async function RootLayout({
   children,
