@@ -1,8 +1,24 @@
+"use client";
+import { useEffect, useState } from "react";
 import EditorWrapper from "./_component/editor/EditorWrapper";
+import { useBackGuard } from '@/app/_providers/BackGuardProvider';
+import { useSearchParams } from 'next/navigation';
 
-export default async function WritePage(props: {searchParams: Promise<{postId: string}>}) {
-  const searchParams = await props.searchParams;
-  const postId = searchParams?.postId || undefined;
+export default function WritePage() {
+  const searchParams = useSearchParams();
+  const postId = searchParams?.get('postId') || undefined;
+  const { setPolicy } = useBackGuard();
+
+  useEffect(() => {
+    // 이 페이지는 저장 안 한 변경이 있으면 뒤로가기 확인
+    setPolicy({
+      confirmMessage: '변경 사항이 저장되지 않았습니다. 뒤로 가시겠어요?',
+      fallbackHref: '/dashboard',
+      sameOriginOnly: true,
+    });
+    return () => setPolicy(null);  // 페이지 떠날 때 정책 해제
+  }, [setPolicy]);
+
   return (
     <main className="px-1 sm:px-8 py-2 flex-1 flex">
       <div className="

@@ -13,6 +13,7 @@ import ToggleVisibilityButton, { ToggleVisibilityButtonHandle } from "./ToggleVi
 import { Visibility } from "@/interfaces/post-type";
 import { CategoryType } from "@/interfaces/category-type";
 import CategoryOption from "./_component/CategoryOption";
+import { BackButton } from "./_component/BackButton";
 
 export default function EditorWrapper({postId}: {postId?: string}) {
   const { post, setPost } = useStorePostPoster();
@@ -71,7 +72,8 @@ export default function EditorWrapper({postId}: {postId?: string}) {
         <ToolbarImplement className="" />
       </SlateEditorComponent>
       {/* 등록하기 버튼 */}
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <BackButton className="mr-2 py-1 px-2"/>
         <button 
           className="bg-[#12b886] text-white p-1 px-2 rounded-md hover:bg-[#0ca678] transition-colors text-lg" 
           onClick={handleSave}>
