@@ -2,18 +2,38 @@
 
 import { getPosts } from '@/lib/api/client/post';
 import useStore from '@/app/(main)/_hooks/useStoreSearchquery';
+import { useEffect, useRef } from 'react';
+
 export default function SearchInput() {
   const { searchQuery, setSearchQuery } = useStore();
-  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchQuery(value);
 
-    if (value) {
-      const searchResults = await getPosts({ searchQuery: value });
-      console.log(searchResults);
-    } else {
+    // 이전 타이머 취소
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
     }
+
+    // 500ms 후에 API 호출
+    debounceTimerRef.current = setTimeout(async () => {
+      if (value) {
+        const searchResults = await getPosts({ searchQuery: value });
+        console.log(searchResults);
+      }
+    }, 500);
   };
+
+  // 컴포넌트 언마운트 시 타이머 정리
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="relative">

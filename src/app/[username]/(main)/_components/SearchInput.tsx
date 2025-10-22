@@ -1,20 +1,42 @@
 'use client';
 
 import useStore from '@/app/[username]/_store/useStoreSearchquery';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SearchInput({className}: {className?: string}) {
-  const { searchQuery, setSearchQuery } = useStore();
+  const { setSearchQuery } = useStore();
+  const [inputValue, setInputValue] = useState('');
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSearchQuery(value);
+    setInputValue(value); // 즉시 UI 업데이트
+
+    // 이전 타이머 취소
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // 500ms 후에 상태 업데이트 (검색 실행)
+    debounceTimerRef.current = setTimeout(() => {
+      setSearchQuery(value);
+    }, 500);
   };
+
+  // 컴포넌트 언마운트 시 타이머 정리
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className={`${className}`}>
       <input
         type="text"
-        value={searchQuery}
+        value={inputValue}
         onChange={handleSearch}
         placeholder="검색어를 입력하세요"
         className="w-64 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
