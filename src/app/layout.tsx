@@ -6,6 +6,7 @@ import StateSetter from "./_component/StateSetter";
 import { BackGuardProvider } from "./_providers/BackGuardProvider";
 import { getCurrentUser } from "@/lib/api/server/user";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { WebVitals } from "./web-vitals";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default async function RootLayout({
             <StateSetter initialUser={user} />
           </BackGuardProvider>
         </ErrorBoundary>
+        <WebVitals />
       </body>
     </html>
   );
