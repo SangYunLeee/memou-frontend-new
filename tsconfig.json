@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "noImplicitAny": false, // 암묵적인 any를 허용
+    "noImplicitAny": true, // 암묵적인 any 금지
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
