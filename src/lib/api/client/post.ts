@@ -1,6 +1,8 @@
 import { axiosInstance } from "@/lib/axios";
 import { PostType } from "@/interfaces/post-type";
 import { CategoryType } from "@/interfaces/category-type";
+import { ApiError } from "@/lib/errors/api-error";
+import { AxiosError } from "axios";
 
 interface GetPostsProps {
   searchQuery?: string;
@@ -17,25 +19,32 @@ export const getPosts = async ({
   authorId,
   selectedCategory
 }: GetPostsProps = {}): Promise<PostType[]> => {
-  const response = await axiosInstance.get('/posts', {
-    params: {
-      content_or_title_include: searchQuery,
-      author_id: authorId,
-      category_ids: selectedCategory?.children
-        ? [selectedCategory.id, ...selectedCategory.children.map((category) => category.id)].join(',')
-        : selectedCategory?.id?.toString(),
-    },
-  });
+  try {
+    const response = await axiosInstance.get('/posts', {
+      params: {
+        content_or_title_include: searchQuery,
+        author_id: authorId,
+        category_ids: selectedCategory?.children
+          ? [selectedCategory.id, ...selectedCategory.children.map((category) => category.id)].join(',')
+          : selectedCategory?.id?.toString(),
+      },
+    });
 
-  const posts = response.data.posts.data;
+    const posts = response.data.posts.data;
 
-  // HTML 태그 제거
-  const modifiedPosts = posts.map((post: PostType) => ({
-    ...post,
-    content: post.content.replace(/<[^>]+>/g, '')
-  }));
+    // HTML 태그 제거
+    const modifiedPosts = posts.map((post: PostType) => ({
+      ...post,
+      content: post.content.replace(/<[^>]+>/g, '')
+    }));
 
-  return modifiedPosts;
+    return modifiedPosts;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      throw ApiError.fromResponse(error.response.status, error.response.data);
+    }
+    throw ApiError.fromNetworkError(error);
+  }
 };
 
 /**
@@ -43,6 +52,13 @@ export const getPosts = async ({
  * 단일 게시물을 가져옵니다
  */
 export const getPost = async ({ postId }: { postId: string }): Promise<PostType> => {
-  const response = await axiosInstance.get(`/posts/${postId}`);
-  return response.data.post;
+  try {
+    const response = await axiosInstance.get(`/posts/${postId}`);
+    return response.data.post;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      throw ApiError.fromResponse(error.response.status, error.response.data);
+    }
+    throw ApiError.fromNetworkError(error);
+  }
 };

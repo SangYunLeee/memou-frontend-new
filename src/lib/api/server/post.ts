@@ -1,6 +1,7 @@
 import { PostType } from "@/interfaces/post-type";
 import { CategoryType } from "@/interfaces/category-type";
 import { env } from '@/lib/env';
+import { ApiError } from '@/lib/errors/api-error';
 
 interface GetPostsProps {
   searchQuery?: string;
@@ -36,47 +37,63 @@ export const getPosts = async ({
 
   const url = `${env.NEXT_PUBLIC_API_URL}/posts${params.toString() ? `?${params.toString()}` : ''}`;
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    next: { tags: ['posts'] },
-    cache: 'force-cache',
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      next: { tags: ['posts'] },
+      cache: 'force-cache',
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch posts: ${response.status}`);
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw ApiError.fromResponse(response.status, data);
+    }
+
+    const data = await response.json();
+    const posts = data.posts.data;
+
+    // HTML 태그 제거
+    const modifiedPosts = posts.map((post: PostType) => ({
+      ...post,
+      content: post.content.replace(/<[^>]+>/g, '')
+    }));
+
+    return modifiedPosts;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw ApiError.fromNetworkError(error);
   }
-
-  const data = await response.json();
-  const posts = data.posts.data;
-
-  // HTML 태그 제거
-  const modifiedPosts = posts.map((post: PostType) => ({
-    ...post,
-    content: post.content.replace(/<[^>]+>/g, '')
-  }));
-
-  return modifiedPosts;
 };
 
 export const getPost = async ({ postId }: { postId: string }): Promise<PostType> => {
-  const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    next: { tags: [`post-${postId}`] },
-    cache: 'force-cache',
-  });
+  try {
+    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      next: { tags: [`post-${postId}`] },
+      cache: 'force-cache',
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch post: ${response.status}`);
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw ApiError.fromResponse(response.status, data);
+    }
+
+    const data = await response.json();
+    return data.post;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw ApiError.fromNetworkError(error);
   }
-
-  const data = await response.json();
-  return data.post;
 };
