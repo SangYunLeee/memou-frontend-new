@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar/Navbar";
 import StateSetter from "./_component/StateSetter";
 import { BackGuardProvider } from "./_providers/BackGuardProvider";
 import { getCurrentUser } from "@/lib/api/server/user";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,15 +38,17 @@ export default async function RootLayout({
 
   return (
     <html lang="ko">
-      <BackGuardProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[calc(100vh+1px)] flex flex-col`}
-        >
-          <Navbar />
-          {children}
-          <StateSetter initialUser={user} />
-        </body>
-      </BackGuardProvider>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[calc(100vh+1px)] flex flex-col`}
+      >
+        <ErrorBoundary>
+          <BackGuardProvider>
+            <Navbar />
+            {children}
+            <StateSetter initialUser={user} />
+          </BackGuardProvider>
+        </ErrorBoundary>
+      </body>
     </html>
   );
 }
