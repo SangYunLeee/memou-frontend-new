@@ -7,6 +7,9 @@ interface Env {
   NODE_ENV: 'development' | 'production' | 'test';
 }
 
+// 검증 여부를 추적하는 플래그
+let isValidated = false;
+
 /**
  * 환경변수 검증 함수
  */
@@ -28,6 +31,15 @@ function validateEnv(): Env {
     );
   }
 
+  // 개발 환경에서 한 번만 로그 출력
+  if (!isValidated && process.env.NODE_ENV === 'development') {
+    console.log('✅ 환경변수 검증 완료:', {
+      NEXT_PUBLIC_API_URL: apiUrl,
+      NODE_ENV: process.env.NODE_ENV,
+    });
+    isValidated = true;
+  }
+
   return {
     NEXT_PUBLIC_API_URL: apiUrl,
     NODE_ENV: (process.env.NODE_ENV as Env['NODE_ENV']) || 'development',
@@ -36,11 +48,3 @@ function validateEnv(): Env {
 
 // 환경변수를 앱 시작 시 한 번만 검증
 export const env = validateEnv();
-
-// 개발 환경에서만 환경변수 출력
-if (env.NODE_ENV === 'development') {
-  console.log('✅ 환경변수 검증 완료:', {
-    NEXT_PUBLIC_API_URL: env.NEXT_PUBLIC_API_URL,
-    NODE_ENV: env.NODE_ENV,
-  });
-}
