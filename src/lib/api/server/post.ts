@@ -1,5 +1,6 @@
 import { PostType } from "@/interfaces/post-type";
 import { CategoryType } from "@/interfaces/category-type";
+import { env } from '@/lib/env';
 
 interface GetPostsProps {
   searchQuery?: string;
@@ -33,7 +34,7 @@ export const getPosts = async ({
     }
   }
 
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/posts${params.toString() ? `?${params.toString()}` : ''}`;
+  const url = `${env.NEXT_PUBLIC_API_URL}/posts${params.toString() ? `?${params.toString()}` : ''}`;
 
   const response = await fetch(url, {
     method: 'GET',
@@ -62,7 +63,7 @@ export const getPosts = async ({
 };
 
 export const getPost = async ({ postId }: { postId: string }): Promise<PostType> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+  const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

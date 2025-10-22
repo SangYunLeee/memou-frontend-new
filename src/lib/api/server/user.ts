@@ -1,5 +1,6 @@
 import { UserType } from "@/interfaces/user-type";
 import { cookies } from 'next/headers';
+import { env } from '@/lib/env';
 
 /**
  * 서버 컴포넌트에서만 사용 가능
@@ -9,7 +10,7 @@ export const getCurrentUser = async (): Promise<UserType> => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('access_token')?.value;
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
+  const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

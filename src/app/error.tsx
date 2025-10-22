@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { env } from '@/lib/env';
 
 /**
  * 루트 레벨 에러 페이지
@@ -42,7 +43,7 @@ export default function Error({
         <p className="text-sm text-gray-600 text-center mb-4">
           페이지를 표시하는 중 오류가 발생했습니다.
         </p>
-        {process.env.NODE_ENV === 'development' && (
+        {env.NODE_ENV === 'development' && (
           <div className="mb-4 p-3 bg-gray-100 rounded text-xs text-gray-700 overflow-auto max-h-32">
             <strong>에러:</strong> {error.message}
             {error.digest && (

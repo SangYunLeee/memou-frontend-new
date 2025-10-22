@@ -1,5 +1,6 @@
 import { login } from '@/lib/api/client/auth';
 import { redirect } from 'next/navigation';
+import { env } from '@/lib/env';
 
 export async function loginAction(prevState: any, formData: FormData) {
   const email = formData.get('email') as string;
@@ -33,7 +34,7 @@ export async function signupAction(prevState: any, formData: FormData) {
   const nickname = formData.get('nickname') as string;
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register/email`, {
+    const response = await fetch(`${env.NEXT_PUBLIC_API_URL}/auth/register/email`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

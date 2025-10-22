@@ -1,6 +1,7 @@
 'use client';
 
 import { Component, ReactNode } from 'react';
+import { env } from '@/lib/env';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -67,7 +68,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             <p className="text-sm text-gray-600 text-center mb-4">
               페이지를 표시하는 중 오류가 발생했습니다.
             </p>
-            {process.env.NODE_ENV === 'development' && (
+            {env.NODE_ENV === 'development' && (
               <div className="mb-4 p-3 bg-gray-100 rounded text-xs text-gray-700 overflow-auto">
                 <strong>에러:</strong> {this.state.error.message}
               </div>
