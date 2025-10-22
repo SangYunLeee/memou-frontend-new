@@ -33,8 +33,8 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <StateSetter />
         </body>
-        <StateSetter />
       </BackGuardProvider>
     </html>
   );
