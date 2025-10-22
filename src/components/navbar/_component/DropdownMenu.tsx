@@ -33,7 +33,7 @@ export default function DropdownMenu({ user }: { user: UserType }) {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button 
+      <button
         className="relative w-8 h-8 rounded-full overflow-hidden cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -43,6 +43,8 @@ export default function DropdownMenu({ user }: { user: UserType }) {
           width={32}
           height={32}
           className="w-full h-full"
+          sizes="32px"
+          priority
         />
       </button>
 

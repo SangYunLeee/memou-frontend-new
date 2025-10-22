@@ -54,6 +54,7 @@ export default function SideBar({className, authorName}: {className: string, aut
             width={80}
             height={80}
             className="w-full h-full"
+            sizes="80px"
             priority
           />
         </div>

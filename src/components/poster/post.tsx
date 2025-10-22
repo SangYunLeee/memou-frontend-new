@@ -21,7 +21,14 @@ export default function Post({ className, post, authorView = true }: { className
             {authorView ? (
               <Link href={`/${post.author.nickname}`} className="flex items-center hover:opacity-80 transition-opacity">
                 <span className="w-5 h-5 rounded-full bg-gray-200 mr-1.5 overflow-hidden">
-                  <Image src={post.author.profileImage?.url || DefaultAvatar} alt="프로필 이미지" width={20} height={20} />
+                  <Image
+                    src={post.author.profileImage?.url || DefaultAvatar}
+                    alt="프로필 이미지"
+                    width={20}
+                    height={20}
+                    sizes="20px"
+                    loading="lazy"
+                  />
                 </span>
                 <span className="text-gray-700">{post.author.nickname}</span>
               </Link>
