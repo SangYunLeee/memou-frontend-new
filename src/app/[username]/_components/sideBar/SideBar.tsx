@@ -1,10 +1,8 @@
 'use client';
-import { useAuthor } from "@/hooks/useAuthor";
 import { SortableTree } from "./SortableTree/SortableTree";
 import { useEffect, useState } from "react";
 import { TreeItem } from "./SortableTree/types";
 import { CategoryTreeItem } from "./SortableTreeItem/CategoryTreeItem";
-import { flattenTree } from "./SortableTree/utilities";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { useRouter } from "next/navigation";
 import { convert } from "@/app/user/setting/[settingId]/_components/contentCategory/ContentCategory.fn";
@@ -12,12 +10,10 @@ import useAuthorStore from "@/store/useStoreAuthor";
 import DefaultAvatar from '@/assets/defaultAvatar.png';
 import Image from 'next/image';
 import Link from "next/link";
-import useAuthorCategoryStore from "../../_store/useStoreAuthorCategory";
 import { flattenItems } from "@/lib/utility";
 
-export default function SideBar({className, authorName}: {className: string, authorName: string}) {
+export default function SideBar({className}: {className: string}) {
   const { author, categories } = useAuthorStore();
-  const { selectedCategory } = useAuthorCategoryStore();
   const [items, setItems] = useState<TreeItem[]>([]);
   const router = useRouter();
 
@@ -32,9 +28,6 @@ export default function SideBar({className, authorName}: {className: string, aut
     if (category && parentCategory) {
       category.parent = parentCategory;
     }
-    // if (category) {
-    //   setSelectedCategory(category);
-    // }
     if (parentCategory) {
       router.push(`/${author?.nickname}?category=${parentCategory?.categoryName.replaceAll(' ', '+')}&subCategory=${category?.categoryName.replaceAll(' ', '+')}`);
     } else {

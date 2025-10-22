@@ -14,7 +14,7 @@ export default async function RootLayout({
       <div className="grid w-270 mx-auto gap-3 grid-cols-1 sm:grid-cols-[260px_auto]">
         {/* 왼쪽 사이드바 */}
         <aside className="rounded-lg p-2">
-          <SideBar className="rounded-lg" authorName={decodedNickname} />
+          <SideBar className="rounded-lg" />
         </aside>
         {/* 오른쪽 콘텐츠 */}
         <section className="rounded-lg p-4">
