@@ -6,6 +6,10 @@ import { ApiError } from '@/lib/errors/api-error';
 /**
  * 서버 컴포넌트에서만 사용 가능
  * cookies()를 사용하여 access_token을 가져옵니다
+ *
+ * 캐싱 전략: 5분마다 재검증 (stale-while-revalidate)
+ * - 빠른 응답을 위해 캐시된 데이터 즉시 반환
+ * - 백그라운드에서 5분마다 최신 데이터로 갱신
  */
 export const getCurrentUser = async (): Promise<UserType> => {
   try {
@@ -19,8 +23,10 @@ export const getCurrentUser = async (): Promise<UserType> => {
         'Authorization': `Bearer ${accessToken}`,
       },
       credentials: 'include',
-      next: { tags: ['user'] },
-      cache: 'force-cache',
+      next: {
+        tags: ['user'],
+        revalidate: 300, // 5분 (300초)
+      },
     });
 
     if (!response.ok) {
