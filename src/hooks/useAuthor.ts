@@ -5,7 +5,7 @@ import { axiosInstance } from "@/lib/axios";
 import { CategoryType } from "@/interfaces/category-type";
 import useAuthorStore from "@/store/useStoreAuthor";
 import { UserType } from "@/interfaces/user-type";
-import { getAuthor } from "@/lib/author-client";
+import { getAuthor } from "@/lib/api/client/author";
 
 type returnType = {
   author: UserType | null;

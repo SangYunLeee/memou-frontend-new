@@ -2,7 +2,7 @@ import Image from "next/image";
 import DefaultAvatar from "@/assets/defaultAvatar.png";
 import useAuthStore from "@/store/useStoreMe";
 import { axiosInstance } from "@/lib/axios";
-import { fetchAndUpdateUserProfile } from "@/lib/user-client";
+import { fetchAndUpdateUserProfile } from "@/lib/api/client/user";
 import { revalidatePosts } from "@/actions/postAction";
 
 const uploadImage = async (file: File) => {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getCurrentUser } from '@/lib/user';
+import { getCurrentUser } from '@/lib/api/server/user';
 import NavMenu from './_component/NavMenu';
 
 const Navbar = async () => {

@@ -7,7 +7,7 @@ import { getEditorSerializedData, handlePostSubmission } from "./EditorWrapper.f
 import { updateEditorContent } from "@/components/slateEditor/helper";
 import { revalidatePosts } from "@/actions/postAction";
 import { useRouter } from 'next/navigation'
-import { getPost } from "@/lib/post-client";
+import { getPost } from "@/lib/api/client/post";
 import ToolbarImplement from "@/components/slateEditor/toolbar/ToolbarImplement";
 import ToggleVisibilityButton, { ToggleVisibilityButtonHandle } from "./ToggleVisibilityButton";
 import { Visibility } from "@/interfaces/post-type";

@@ -4,7 +4,7 @@ import SubmitButton from '@/components/auth/SummitButton';
 import React, { useState } from 'react';
 import useAuthStore from '@/store/useStoreMe';
 import { useRouter } from 'next/navigation';
-import { login } from '@/lib/user-client';
+import { login } from '@/lib/api/client/auth';
 
 export default function LoginForm() {
   const router = useRouter();

@@ -1,4 +1,4 @@
-import { CategoryType } from "../../../../../types/post";
+import { CategoryType } from "@/interfaces/category-type";
 import { TreeItems } from "./types";
 
 export const initialItems: TreeItems = [

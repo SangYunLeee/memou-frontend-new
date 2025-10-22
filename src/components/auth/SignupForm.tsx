@@ -3,7 +3,7 @@
 import SubmitButton from '@/components/auth/SummitButton';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signup } from '@/lib/user-client';
+import { signup } from '@/lib/api/client/auth';
 
 export default function SignupForm() {
   const router = useRouter();

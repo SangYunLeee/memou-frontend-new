@@ -7,7 +7,7 @@ import DefaultAvatar from '@/assets/defaultAvatar.png';
 import { UserType } from '@/interfaces/user-type';
 import useAuthStore from '@/store/useStoreMe';
 import { useRouter } from 'next/navigation';
-import { logout } from '@/lib/user-client';
+import { logout } from '@/lib/api/client/auth';
 export default function DropdownMenu({ user }: { user: UserType }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

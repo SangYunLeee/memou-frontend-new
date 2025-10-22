@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import useAuthStore from '@/store/useStoreMe';
-import { getCurrentUser } from "@/lib/user-client";
+import { getCurrentUser } from "@/lib/api/client/user";
 export default function StateSetter() {
   const {setUser, logout} = useAuthStore();
   useEffect(() => {

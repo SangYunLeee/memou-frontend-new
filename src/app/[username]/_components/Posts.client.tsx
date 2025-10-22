@@ -1,6 +1,6 @@
 'use client';
 
-import { getPosts } from "@/lib/post-client";
+import { getPosts } from "@/lib/api/client/post";
 import useStore from '@/app/[username]/_store/useStoreSearchquery';
 import { useState, useEffect } from 'react';
 import { PostType } from "@/interfaces/post-type";

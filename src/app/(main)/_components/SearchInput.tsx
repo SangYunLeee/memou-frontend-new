@@ -1,6 +1,6 @@
 'use client';
 
-import { getPosts } from '@/lib/post-client';
+import { getPosts } from '@/lib/api/client/post';
 import useStore from '@/app/(main)/_hooks/useStoreSearchquery';
 export default function SearchInput() {
   const { searchQuery, setSearchQuery } = useStore();

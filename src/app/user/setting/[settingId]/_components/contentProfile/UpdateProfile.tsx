@@ -1,6 +1,6 @@
 import useAuthStore from "@/store/useStoreMe";
 import { axiosInstance } from "@/lib/axios";
-import { fetchAndUpdateUserProfile } from "@/lib/user-client";
+import { fetchAndUpdateUserProfile } from "@/lib/api/client/user";
 import { useRef } from "react";
 import { revalidatePosts } from "@/actions/postAction";
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { updateEditorContent } from "@/components/slateEditor/helper";
 import { PostType } from "@/interfaces/post-type";
-import { getPost } from "@/lib/post-client";
+import { getPost } from "@/lib/api/client/post";
 import useAuthStore from "@/store/useStoreMe";
 import { axiosInstance } from "@/lib/axios";
 import { useRouter } from "next/navigation";
