@@ -27,11 +27,10 @@ export const validatePasswordMatch = (password: HTMLInputElement, confirmPasswor
 
 export const handleChangePassword = async (password: string, newPassword: string) => {
   try {
-    const response = await axiosInstance.patch('/auth/password', {
+    await axiosInstance.patch('/auth/password', {
       currentPassword: password,
       newPassword,
     });
-    console.log(response);
     alert('비밀번호가 변경되었습니다.');
   } catch (error: any) {
     console.error(error);

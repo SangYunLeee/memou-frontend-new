@@ -217,7 +217,6 @@ export function SortableTree({
   }
 
   function handleEditClicked(id: UniqueIdentifier) {
-    console.log('handleEditClicked', id);
     setItems((items) => setProperty(items, id, 'isEditing', (value) => {
       return true;
     }));

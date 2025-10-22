@@ -63,8 +63,6 @@ export function SortableTree({
     </>
   );
   function handleCollapse(id: UniqueIdentifier) {
-    console.log('handleCollapse', id);
-    console.log('items', items);
     setItems((items) =>
       setProperty(items, id, 'collapsed', (value) => {
         return !value;

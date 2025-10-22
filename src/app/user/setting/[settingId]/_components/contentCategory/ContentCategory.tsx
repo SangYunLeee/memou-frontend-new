@@ -23,8 +23,6 @@ export default function ContentCategory() {
   }, [originItems]);
 
   const handleAdd = () => {
-    console.log('카테고리 추가');
-    console.log('items', items);
     setItems((items) => [...items, { id: newCategoryId, name: '새 카테고리', children: [], count: 0, tempPostCount: 0, pos: 0, isEditing: true }]);
     setNewCategoryId(newCategoryId - 1);
   };
@@ -39,21 +37,14 @@ export default function ContentCategory() {
       alert('변경사항이 완료되지 않았습니다.');
       return;
     }
-    console.log('originItems', originItems);
-    console.log('flattenedItems', flattenedItems);
     const originalFlattenedItems = flattenTree(originItems).map((item) => ({...item, index: item.pos}));
-    console.log('originalFlattenedItems', originalFlattenedItems);
-    console.log('flattenedItems', flattenedItems);
     // 변경사항 적용
     // 삭제 대상
     const deletedItems = getDeletedItems(originalFlattenedItems, flattenedItems);
-    console.log('deletedItems', deletedItems);
     // 추가 대상
     const addedItems = getAddedItems(originalFlattenedItems, flattenedItems).map((item) => ({...item, categoryName: item.name, pos: item.index, parentId: item.parentId}));
-    console.log('addedItems', addedItems);
     // 변경 대상
     const changedItems = getChangedItems(originalFlattenedItems, flattenedItems).map((item) => ({...item, categoryName: item.name, pos: item.index, parentId: item.parentId}));
-    console.log('changedItems', changedItems);
 
     if (deletedItems.length + addedItems.length + changedItems.length === 0) {
       alert('변경사항이 없습니다.');
@@ -65,7 +56,6 @@ export default function ContentCategory() {
       categoriesToAdd: addedItems,
       categoriesToUpdate: changedItems,
     });
-    console.log('response', response.data.categories);
     setMyCategories(response.data.categories);
     alert('카테고리 변경사항이 적용되었습니다.');
   };

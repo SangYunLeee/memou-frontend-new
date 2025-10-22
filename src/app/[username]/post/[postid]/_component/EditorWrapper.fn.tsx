@@ -32,8 +32,7 @@ export function useEditorWrapper(postId?: string) {
   const handleDelete = async () => {
     if (window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
       try {
-        const response = await axiosInstance.delete(`/posts/${postId}`);
-        console.log('Post Deleted:', response);
+        await axiosInstance.delete(`/posts/${postId}`);
         await revalidatePosts();
         router.push(`/${user?.nickname}`);
       } catch (error) {

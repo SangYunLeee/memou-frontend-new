@@ -20,8 +20,7 @@ export default function SearchInput() {
     // 500ms 후에 API 호출
     debounceTimerRef.current = setTimeout(async () => {
       if (value) {
-        const searchResults = await getPosts({ searchQuery: value });
-        console.log(searchResults);
+        await getPosts({ searchQuery: value });
       }
     }, 500);
   };

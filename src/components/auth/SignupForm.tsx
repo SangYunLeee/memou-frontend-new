@@ -20,8 +20,6 @@ export default function SignupForm() {
     const password = formData.get('password') as string;
     const nickname = formData.get('nickname') as string;
 
-    console.log('전송할 데이터:', { email, password, nickname });
-
     try {
       await signup(email, password, nickname);
       router.push('/');
