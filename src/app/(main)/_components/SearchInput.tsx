@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 export default function SearchInput() {
   const { searchQuery, setSearchQuery } = useStore();
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isFirstInputRef = useRef(true);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -17,12 +18,17 @@ export default function SearchInput() {
       clearTimeout(debounceTimerRef.current);
     }
 
-    // 500ms 후에 API 호출
+    // 첫 입력은 즉시 실행, 이후 연속 입력은 150ms 디바운스
+    const delay = isFirstInputRef.current ? 0 : 150;
+    isFirstInputRef.current = false;
+
     debounceTimerRef.current = setTimeout(async () => {
       if (value) {
         await getPosts({ searchQuery: value });
       }
-    }, 500);
+      // 검색이 완료되면 다음 입력을 첫 입력으로 간주
+      isFirstInputRef.current = true;
+    }, delay);
   };
 
   // 컴포넌트 언마운트 시 타이머 정리
