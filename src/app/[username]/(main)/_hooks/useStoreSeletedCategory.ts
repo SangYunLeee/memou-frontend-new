@@ -7,18 +7,18 @@ import useAuthorStore from "@/store/useStoreAuthor";
 export function useStoreSeletedCategory() {
   const { setSelectedCategory } = useAuthorCategoryStore();
   const searchParams = useSearchParams();
-  const level1CategoryName = searchParams.get('category');
-  const level2CategoryName = searchParams.get('subCategory');
+  const level1CategoryId = searchParams.get('category');
+  const level2CategoryId = searchParams.get('subCategory');
   const { categories } = useAuthorStore();
   const flattenedCategories = flattenItems(categories);
 
   useEffect(() => {
-    if (!level1CategoryName && !level2CategoryName) {
+    if (!level1CategoryId && !level2CategoryId) {
       setSelectedCategory(null);
       return;
     }
-    const level1Category = flattenedCategories.find((category) => category.categoryName === level1CategoryName);
-    const level2Category = flattenedCategories.find((category) => category.categoryName === level2CategoryName);
+    const level1Category = flattenedCategories.find((category) => category.id === Number(level1CategoryId));
+    const level2Category = flattenedCategories.find((category) => category.id === Number(level2CategoryId));
     // 검색된 카테고리가 없으면 종료
     if (!level1Category) {
       return;
@@ -29,7 +29,7 @@ export function useStoreSeletedCategory() {
     }
     // 검색된 카테고리를 설정
     setSelectedCategory(level2Category ?? level1Category ?? undefined);
-  }, [level1CategoryName, level2CategoryName]);
+  }, [level1CategoryId, level2CategoryId]);
 
   useEffect(() => {
     return () => {

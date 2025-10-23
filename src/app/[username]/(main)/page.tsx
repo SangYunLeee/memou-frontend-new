@@ -1,21 +1,20 @@
 import SearchInput from "@/app/[username]/(main)/_components/SearchInput";
 import SearchedPosts from "../_components/Posts.client";
 import StateSetter from "./_components/StateSetter";
+import CategoryTitle from "./_components/CategoryTitle";
 
-export default async function UserPage({ 
+export default async function UserPage({
   params,
-  searchParams 
-}: { 
+  searchParams
+}: {
   params: Promise<{ username: string }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const { username } = await params;
-  const { category, subCategory } = await searchParams;
-  const title = category? category + (subCategory? " - " + subCategory : "") : "";
   return (
       <>
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">{category ? title : "게시글 목록"}</h2>
+            <CategoryTitle />
             <SearchInput className="relative mb-4" />
           </div>
           {/* 게시글 리스트 내용 */}

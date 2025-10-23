@@ -29,9 +29,9 @@ export default function SideBar({className}: {className: string}) {
       category.parent = parentCategory;
     }
     if (parentCategory) {
-      router.push(`/${author?.nickname}?category=${parentCategory?.categoryName.replaceAll(' ', '+')}&subCategory=${category?.categoryName.replaceAll(' ', '+')}`);
+      router.push(`/${author?.nickname}?category=${parentCategory?.id}&subCategory=${category?.id}`);
     } else {
-      router.push(`/${author?.nickname}?category=${category?.categoryName.replaceAll(' ', '+')}`);
+      router.push(`/${author?.nickname}?category=${category?.id}`);
     }
   }
 
